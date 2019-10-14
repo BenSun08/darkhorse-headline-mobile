@@ -26,7 +26,7 @@
       <span>没有账号？</span>
       <router-link to="/register">去注册</router-link>
     </div>
-    <my-button text="登录" @click="loginHandler"></my-button>
+    <my-button @click="loginHandler">登录</my-button>
   </div>
 </template>
 

@@ -1,13 +1,13 @@
 <template>
-  <div class="button" @click="clickHandler">
-    {{text}}
+  <div class="button" @click="clickHandler"
+    :class="[type, size]">
+    <slot></slot>
   </div>
 </template>
 
 <script>
 export default {
   props: [
-    'text',
     'type',
     'size'
   ],
@@ -37,5 +37,15 @@ export default {
   .info{
     color: #000000;
     background-color: #e1e1e1;
+  }
+  .large{
+    line-height: 48*@vw-ratio;
+    font-size: 18px;
+    border-radius: 48*@vw-ratio;
+  }
+  .middle{
+    height: 30*@vw-ratio;
+    font-size: 12px;
+    line-height: 30*@vw-ratio
   }
 </style>

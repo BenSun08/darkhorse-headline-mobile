@@ -13,6 +13,7 @@ axios.interceptors.request.use(config => {
   return config
 }, error => {
 // Do something with request error
+  // Toast.fail(error)
   return Promise.reject(error)
 })
 
@@ -20,6 +21,11 @@ axios.interceptors.response.use(response => {
 // Do something before response is sent
   if (!response.data.data) {
     Toast.fail(response.data.message)
+    if (response.data.message === '用户信息验证失败') {
+      setTimeout(() => {
+        location.href = '#/login'
+      }, 1000)
+    }
   }
   return response
 }, error => {

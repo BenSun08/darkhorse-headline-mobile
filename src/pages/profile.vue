@@ -23,52 +23,35 @@
       </div>
     </router-link>
     <div class="more-info">
-      <router-link to="/my-follows">
-        <div class="navigation">
-          <span class="option">我的关注</span>
-          <div class="description">
-            <span>关注的用户</span>
-            <img src="../assets/profile/u227.png" alt="">
-          </div>
-        </div>
-      </router-link>
-      <router-link to="/my-posts">
-        <div class="navigation">
-          <span class="option">我的跟帖</span>
-          <div class="description">
-            <span>跟帖/回复</span>
-            <img src="../assets/profile/u227.png" alt="">
-          </div>
-        </div>
-      </router-link>
-      <router-link to="/my-favorites">
-        <div class="navigation">
-          <span class="option">我的收藏</span>
-          <div class="description">
-            <span>文章/视频</span>
-            <img src="../assets/profile/u227.png" alt="">
-          </div>
-        </div>
-      </router-link>
-      <router-link to="/settings">
-        <div class="navigation">
-          <span class="option">设置</span>
-          <div class="description">
-            <span></span>
-            <img src="../assets/profile/u227.png" alt="">
-          </div>
-        </div>
-      </router-link>
+      <list-item url="#/my-follows">
+        <span slot="option">我的关注</span>
+        <span slot="description">关注的用户</span>
+      </list-item>
+      <list-item url="#/my-posts">
+        <span slot="option">我的跟帖</span>
+        <span slot="description">跟帖/回复</span>
+      </list-item>
+      <list-item url="#/my-favorites">
+        <span slot="option">我的收藏</span>
+        <span slot="description">文章/视频</span>
+      </list-item>
+      <list-item url="#/settings">
+        <span slot="option">设置</span>
+      </list-item>
     </div>
   </div>
 </template>
 
 <script>
+import listItem from '@/components/list-item.vue'
 import { getUserProfile } from '@/api/users.js'
 import { formatDate } from '@/utils/filters.js'
 import { Toast } from 'vant'
 
 export default {
+  components: {
+    listItem
+  },
   data () {
     return {
       userProfile: {
@@ -87,14 +70,13 @@ export default {
       if (this.userProfile.head_img) {
         this.userProfile.head_img = localStorage.getItem('dh_base_URL') + this.userProfile.head_img
       } else {
-        console.dir(this.$refs.avatar)
         this.userProfile.head_img = './default_avatar.png'
       }
     } else {
       Toast.fail('用户登录超时')
       setTimeout(() => {
         location.href = '#/login'
-      }, 2000)
+      }, 1000)
     }
   },
   filters: {
@@ -169,30 +151,6 @@ export default {
   }
   .more-info{
     padding-left: 20px;
-    .navigation{
-      padding-right: 10px;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      height: 50*@vw-ratio;
-      border-bottom: solid 1px #e4e4e4;
-      .option{
-        color: #000000;
-      }
-      .description{
-        display: flex;
-        align-items: center;
-        span{
-          color: #a0a0a0;
-          font-size: 12px;
-          padding-right: 10px;
-        }
-        img{
-          width: 17*@vw-ratio;
-          height: 17*@vw-ratio;
-        }
-      }
-    }
   }
 }
 </style>

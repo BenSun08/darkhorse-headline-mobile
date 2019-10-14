@@ -4,6 +4,7 @@ import login from '@/pages/login.vue'
 import profile from '@/pages/profile.vue'
 import register from '@/pages/register.vue'
 import myFollows from '@/pages/my-follows.vue'
+import editProfile from '@/pages/edit-profile.vue'
 
 Vue.use(VueRouter)
 
@@ -28,6 +29,11 @@ const router = new VueRouter({
       name: 'my-follows',
       path: '/my-follows',
       component: myFollows
+    },
+    {
+      name: 'edit-profile',
+      path: '/edit-profile',
+      component: editProfile
     }
   ]
 })

@@ -32,7 +32,7 @@
       <span>有账号？</span>
       <router-link to="/login">去登录</router-link>
     </div>
-    <my-button text="注册" @click="registerHandler"></my-button>
+    <my-button @click="registerHandler">注册</my-button>
   </div>
 </template>
 
@@ -68,7 +68,7 @@ export default {
     },
     async registerHandler (event) {
       const rsp = await userRegister(this.userData)
-      if (rsp.data.statusCode && rsp.data.statusCode + '0' !== '200') {
+      if (rsp.data.statusCode && rsp.data.statusCode + '' !== '200') {
         Toast.fail(rsp.data.message)
       } else {
         Toast.success(rsp.data.message)

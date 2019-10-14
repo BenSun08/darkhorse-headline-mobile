@@ -22,3 +22,18 @@ export const getUserProfile = function (userId) {
     url: `/user/${userId}`
   })
 }
+
+export const getMyFollows = function () {
+  return axios({
+    method: 'get',
+    url: `/user_follows`
+  })
+}
+
+export const updateUserProfile = function (userId, data) {
+  return axios({
+    method: 'post',
+    url: `/user_update/${userId}`,
+    data
+  })
+}
