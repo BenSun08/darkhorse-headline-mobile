@@ -1,6 +1,7 @@
 <template>
-  <div class="button" @click="clickHandler"
-    :class="[type, size]">
+  <div class="button" @click="clickHandler(parentKey)"
+    :class="[type, size]"
+    >
     <slot></slot>
   </div>
 </template>
@@ -9,11 +10,12 @@
 export default {
   props: [
     'type',
-    'size'
+    'size',
+    'parentKey'
   ],
   methods: {
-    clickHandler (event) {
-      this.$emit('click', event)
+    clickHandler (value) {
+      this.$emit('click', value)
     }
   }
 }

@@ -30,6 +30,13 @@ export const getMyFollows = function () {
   })
 }
 
+export const unfollow = function (unfollowId) {
+  return axios({
+    method: 'get',
+    url: `/user_unfollow/${unfollowId}`
+  })
+}
+
 export const updateUserProfile = function (userId, data) {
   return axios({
     method: 'post',

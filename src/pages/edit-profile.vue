@@ -161,7 +161,6 @@ export default {
       Toast.success(rsp.data.message)
     },
     beforeRead (file) {
-      console.log(!/^image/.test(file.type))
       if (!/^image/.test(file.type)) {
         Toast.fail('请上传图片格式的头像')
         return false

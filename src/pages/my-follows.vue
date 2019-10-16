@@ -12,7 +12,10 @@
         </div>
         <div class="unfollow">
           <my-button type="info"
-            size="middle">取消关注</my-button>
+            size="middle"
+            :parent-key="follow.id"
+            @click="unfollowHnadler"
+            >取消关注</my-button>
         </div>
       </div>
     </div>
@@ -23,7 +26,8 @@
 import myButton from '@/components/my-button.vue'
 import myHeader from '@/components/my-header.vue'
 import { formatDate } from '@/utils/filters.js'
-import { getMyFollows } from '@/api/users.js'
+import { getMyFollows, unfollow } from '@/api/users.js'
+import { Toast } from 'vant'
 
 export default {
   components: {
@@ -42,8 +46,18 @@ export default {
       element.date = new Date()
       if (!element.head_img) {
         element.head_img = './default_avatar.png'
+      } else {
+        element.head_img = localStorage.getItem('dh_base_URL') + element.head_img
       }
     })
+  },
+  methods: {
+    async unfollowHnadler (unfollowId) {
+      let index2Unfollow = this.followsList.findIndex(element => element.id === unfollowId)
+      this.followsList.splice(index2Unfollow, 1)
+      let rsp = await unfollow(unfollowId)
+      Toast.success(rsp.data.message)
+    }
   },
   filters: {
     formatDate (value) {
@@ -69,6 +83,7 @@ export default {
         img{
           width: 40*@vw-ratio;
           height: 40*@vw-ratio;
+          border-radius: 50%;
         }
       }
       .follow-name{

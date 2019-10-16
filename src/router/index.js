@@ -5,6 +5,8 @@ import profile from '@/pages/profile.vue'
 import register from '@/pages/register.vue'
 import myFollows from '@/pages/my-follows.vue'
 import editProfile from '@/pages/edit-profile.vue'
+import myPosts from '@/pages/my-posts.vue'
+import myFavorites from '@/pages/my-favorites.vue'
 
 Vue.use(VueRouter)
 
@@ -34,6 +36,16 @@ const router = new VueRouter({
       name: 'edit-profile',
       path: '/edit-profile',
       component: editProfile
+    },
+    {
+      name: 'my-posts',
+      path: '/my-posts',
+      component: myPosts
+    },
+    {
+      name: 'my-favorites',
+      path: '/my-favorites',
+      component: myFavorites
     }
   ]
 })
