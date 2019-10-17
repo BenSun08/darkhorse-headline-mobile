@@ -30,6 +30,13 @@ export const getMyFollows = function () {
   })
 }
 
+export const follow = function (followId) {
+  return axios({
+    method: 'get',
+    url: `/user_follows/${followId}`
+  })
+}
+
 export const unfollow = function (unfollowId) {
   return axios({
     method: 'get',
@@ -42,5 +49,12 @@ export const updateUserProfile = function (userId, data) {
     method: 'post',
     url: `/user_update/${userId}`,
     data
+  })
+}
+
+export const getUserComments = function () {
+  return axios({
+    method: 'get',
+    url: '/user_comments'
   })
 }

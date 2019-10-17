@@ -1,6 +1,8 @@
 <template>
   <div class="my-follows">
-    <my-header url="#/profile">我的关注</my-header>
+    <my-header url="#/profile" class="header">
+      <span slot="middle">我的关注</span>
+    </my-header>
     <div class="follows-list">
       <div class="follow" v-for="follow in followsList" :key="follow.id">
         <div class="follow-avatar">
@@ -70,6 +72,9 @@ export default {
 <style lang="less" scoped>
 @vw-ratio: 100/360vw;
 .my-follows{
+  .header{
+    margin: 10px 0;
+  }
   .follows-list{
     margin-top: 20px;
     .follow{

@@ -1,6 +1,8 @@
 <template>
   <div class="edit-profile">
-    <my-header url="#/profile">编辑资料</my-header>
+    <my-header url="#/profile" class="header">
+      <span slot="middle">编辑资料</span>
+    </my-header>
     <div class="upload-avatar">
       <img :src="avatar" alt="">
       <van-uploader
@@ -61,11 +63,7 @@ import { getUserProfile, updateUserProfile } from '@/api/users.js'
 import { uploadAvatar } from '@/api/upload-files.js'
 import { Toast, Uploader, Dialog, Field, Popup, Picker } from 'vant'
 import Vue from 'vue'
-Vue.use(Uploader)
-Vue.use(Dialog)
-Vue.use(Field)
-Vue.use(Popup)
-Vue.use(Picker)
+Vue.use(Uploader).use(Dialog).use(Field).use(Popup).use(Picker)
 
 export default {
   components: {
@@ -186,6 +184,9 @@ export default {
 <style lang="less" scoped>
 @vw-ratio: 100/360vw;
 .edit-profile{
+  .header{
+    margin: 10px 0;
+  }
   .upload-avatar{
     position: relative;
     height: 120*@vw-ratio;

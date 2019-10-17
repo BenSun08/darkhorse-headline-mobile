@@ -7,11 +7,23 @@ import myFollows from '@/pages/my-follows.vue'
 import editProfile from '@/pages/edit-profile.vue'
 import myPosts from '@/pages/my-posts.vue'
 import myFavorites from '@/pages/my-favorites.vue'
+import index from '@/pages/index.vue'
+import newsDetail from '@/pages/news-detail.vue'
 
 Vue.use(VueRouter)
 
 const router = new VueRouter({
   routes: [
+    {
+      name: 'index',
+      path: '/',
+      component: index
+    },
+    {
+      name: 'news-detail',
+      path: '/news-detail/:id',
+      component: newsDetail
+    },
     {
       name: 'login',
       path: '/login',

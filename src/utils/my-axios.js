@@ -20,8 +20,8 @@ axios.interceptors.request.use(config => {
 axios.interceptors.response.use(response => {
 // Do something before response is sent
   if (!response.data.data) {
-    Toast.fail(response.data.message)
     if (response.data.message === '用户信息验证失败') {
+      Toast.fail(response.data.message)
       setTimeout(() => {
         location.href = '#/login'
       }, 1000)

@@ -1,10 +1,11 @@
 <template>
   <div id="app">
-    <div class="header"></div>
+    <!-- <div class="header"></div> -->
     <div class="content">
       <router-view></router-view>
     </div>
-    <div class="footer"></div>
+    <!-- <div class="pseudo-footer"></div> -->
+    <!-- <div class="footer"></div> -->
   </div>
 </template>
 
@@ -17,7 +18,7 @@ export default {
 }
 </script>
 
-<style lang="less">
+<style lang="less" scoped>
 @vw-ratio: 100/360vw;
 #app {
   background-color: #f2f2f2;
@@ -30,6 +31,11 @@ export default {
     width: 100vw;
     height: 24*@vw-ratio;
     background-color: #757575;
+  }
+  .pseudo-footer{
+    width: 100%;
+    height: 48*@vw-ratio;
+    background-color: #f2f2f2;
   }
   .footer{
     position: fixed;

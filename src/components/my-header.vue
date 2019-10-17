@@ -2,11 +2,16 @@
   <div class="header">
     <a :href="url">
       <img src="../assets/components/header.png" alt="back">
+      <div class="left">
+        <slot name="left"></slot>
+      </div>
     </a>
-    <span>
-      <slot></slot>
-    </span>
-    <div class="complement"></div>
+    <div class="middle">
+      <slot name="middle"></slot>
+    </div>
+    <div class="complement">
+      <slot name="right"></slot>
+    </div>
   </div>
 </template>
 
@@ -22,20 +27,37 @@ export default {
 @vw-ratio: 100/360vw;
   .header{
     box-sizing: border-box;
+    position: relative;
     width: 100%;
-    padding: 20px;
     display: flex;
     justify-content: space-between;
     align-items: center;
     background-color: #f2f2f2 !important;
-    img
-    ,.complement{
-      width: 17*@vw-ratio;
-      height: 17*@vw-ratio;
+    padding: 0 20px;
+    a{
+      display: flex;
+      align-items: center;
+      >img{
+        width: 15*@vw-ratio;
+        height: 15*@vw-ratio;
+      }
+      .left{
+        img{
+          width: 54*@vw-ratio;
+          height: 54*@vw-ratio;
+        }
+      }
     }
-    span{
+    .middle{
+      position:absolute;
+      left: 50%;
+      top: 50%;
+      transform: translate(-50%,-50%);
       font-weight: bold;
       font-size: 14px;
+    }
+    .complement{
+      width: 62*@vw-ratio;
     }
   }
 </style>
