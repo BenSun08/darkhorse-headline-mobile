@@ -55,7 +55,6 @@ import { getArticleById, likeArticle } from '@/api/articles.js'
 import { unfollow, follow } from '@/api/users.js'
 import Vue from 'vue'
 import { Toast, Icon } from 'vant'
-import '../assets/font_like/iconfont.css'
 Vue.use(Icon)
 
 export default {
