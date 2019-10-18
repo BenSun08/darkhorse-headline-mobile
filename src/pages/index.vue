@@ -112,7 +112,6 @@ export default {
     },
     onLoad () {
       let { pageIndex, pageSize, id, articlesList } = this.columnsList[this.active]
-      console.log(this.columnsList[this.active].articlesList)
       if (pageIndex * pageSize > articlesList.length) {
         this.columnsList[this.active].loading = false
         this.columnsList[this.active].finished = true

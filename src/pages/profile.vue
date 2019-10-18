@@ -1,5 +1,8 @@
 <template>
   <div class="profile">
+    <my-header url="#/">
+    <img slot="left" src="../assets/components/header-logo.png" alt="">
+    </my-header>
     <router-link to="/edit-profile">
       <div class="basic-info">
         <div class="basic-left">
@@ -35,14 +38,15 @@
         <span slot="option">我的收藏</span>
         <span slot="description">文章/视频</span>
       </list-item>
-      <list-item url="#/settings">
-        <span slot="option">设置</span>
+      <list-item url="javascript:;" @click="logoutHandler">
+        <span slot="option">退出</span>
       </list-item>
     </div>
   </div>
 </template>
 
 <script>
+import myHeader from '@/components/my-header.vue'
 import listItem from '@/components/list-item.vue'
 import { getUserProfile } from '@/api/users.js'
 import { formatDate } from '@/utils/filters.js'
@@ -50,6 +54,7 @@ import { Toast } from 'vant'
 
 export default {
   components: {
+    myHeader,
     listItem
   },
   data () {
@@ -77,6 +82,13 @@ export default {
       setTimeout(() => {
         location.href = '#/login'
       }, 1000)
+    }
+  },
+  methods: {
+    logoutHandler () {
+      localStorage.removeItem('current_dh_user_id')
+      localStorage.removeItem('current_dh_user_token')
+      this.$router.push('/')
     }
   },
   filters: {

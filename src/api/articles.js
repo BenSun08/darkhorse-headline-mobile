@@ -28,3 +28,10 @@ export const likeArticle = function (id) {
     url: `/post_like/${id}`
   })
 }
+
+export const starArticle = function (id) {
+  return axios({
+    method: 'get',
+    url: `/post_star/${id}`
+  })
+}

@@ -88,4 +88,9 @@ export default {
     line-height: 26*@vw-ratio;
     font-size: 12px;
   }
+  .x-small{
+    height: 16*@vw-ratio;
+    line-height: 16*@vw-ratio;
+    font-size: 10px;
+  }
 </style>

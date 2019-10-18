@@ -58,3 +58,10 @@ export const getUserComments = function () {
     url: '/user_comments'
   })
 }
+
+export const getAllFavorites = function () {
+  return axios({
+    method: 'get',
+    url: '/user_star'
+  })
+}
