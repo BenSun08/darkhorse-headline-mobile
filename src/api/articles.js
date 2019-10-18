@@ -35,3 +35,18 @@ export const starArticle = function (id) {
     url: `/post_star/${id}`
   })
 }
+
+export const getCommentsById = function (id) {
+  return axios({
+    method: 'get',
+    url: `/post_comment/${id}`
+  })
+}
+
+export const postComment = function (id, data) {
+  return axios({
+    method: 'post',
+    url: `/post_comment/${id}`,
+    data
+  })
+}

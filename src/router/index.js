@@ -9,6 +9,7 @@ import myPosts from '@/pages/my-posts.vue'
 import myFavorites from '@/pages/my-favorites.vue'
 import index from '@/pages/index.vue'
 import newsDetail from '@/pages/news-detail.vue'
+import brillComments from '@/pages/brill-comments.vue'
 
 Vue.use(VueRouter)
 
@@ -23,6 +24,11 @@ const router = new VueRouter({
       name: 'news-detail',
       path: '/news-detail/:id',
       component: newsDetail
+    },
+    {
+      name: 'brill-comments',
+      path: '/brill-comments/:id',
+      component: brillComments
     },
     {
       name: 'login',
