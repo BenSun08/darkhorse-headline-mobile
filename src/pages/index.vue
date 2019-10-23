@@ -5,7 +5,7 @@
         <img src="../assets/index/u6.png" alt="">
       </div>
       <div class="search">
-        <div class="search-input">
+        <div class="search-input" @click="$router.push('/search')">
           <img src="../assets/index/u8.png" alt="">
           <span>搜索新闻</span>
         </div>

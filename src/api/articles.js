@@ -51,3 +51,19 @@ export const postComment = function (id, data) {
     data
   })
 }
+
+export const getRecommends = function (params) {
+  return axios({
+    method: 'get',
+    url: '/post_search_recommend',
+    params
+  })
+}
+
+export const getSearches = function (params) {
+  return axios({
+    method: 'get',
+    url: '/post_search',
+    params
+  })
+}

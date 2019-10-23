@@ -10,6 +10,7 @@ import myFavorites from '@/pages/my-favorites.vue'
 import index from '@/pages/index.vue'
 import newsDetail from '@/pages/news-detail.vue'
 import brillComments from '@/pages/brill-comments.vue'
+import search from '@/pages/search.vue'
 
 Vue.use(VueRouter)
 
@@ -19,6 +20,11 @@ const router = new VueRouter({
       name: 'index',
       path: '/',
       component: index
+    },
+    {
+      name: 'search',
+      path: '/search',
+      component: search
     },
     {
       name: 'news-detail',

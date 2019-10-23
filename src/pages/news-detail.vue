@@ -134,7 +134,9 @@ export default {
     }
   },
   beforeRouteEnter (to, from, next) {
-    if (from.name === 'index' || from.name === 'my-favorites') {
+    if (from.name === 'index' ||
+      from.name === 'my-favorites' ||
+      from.name === 'search') {
       localStorage.setItem('from_path', '#' + from.path)
     }
     next()
