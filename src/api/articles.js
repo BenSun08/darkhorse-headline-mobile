@@ -36,10 +36,11 @@ export const starArticle = function (id) {
   })
 }
 
-export const getCommentsById = function (id) {
+export const getCommentsById = function (id, params) {
   return axios({
     method: 'get',
-    url: `/post_comment/${id}`
+    url: `/post_comment/${id}`,
+    params
   })
 }
 

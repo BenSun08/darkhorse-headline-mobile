@@ -5,7 +5,7 @@
       :user-name="parent.user.nickname"
       :content="parent.content"
       :parent="parent.parent"
-      @click="ascendHandler"
+      @click="descPostman"
     >
     </rec-comment>
     <div class="rec-info">
@@ -13,8 +13,8 @@
         <span class="name">{{userName}}</span>
         <span class="time">2小时前</span>
       </div>
-      <div class="info-right" @click="descendHandler">
-        <span>回复</span>
+      <div class="info-right" @click="initPostman">
+        <span class="btn-reply">回复</span>
       </div>
     </div>
     <div class="rec-content">
@@ -33,11 +33,11 @@ export default {
     'parent'
   ],
   methods: {
-    descendHandler () {
-      this.$emit('click', this.curId)
+    initPostman () {
+      this.$emit('click', { id: this.curId, name: this.userName })
     },
-    ascendHandler (id) {
-      this.$emit('click', id)
+    descPostman (data) {
+      this.$emit('click', data)
     }
   }
 }

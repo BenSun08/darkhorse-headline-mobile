@@ -1,10 +1,16 @@
 <template>
   <div class="brill-comments">
-    <div class="head-body" @click="Writing=false">
+    <div class="head-body" @click="hideHandler">
       <my-header :url="'#/news-detail/'+$route.params.id" class="header">
         <span slot="middle">精彩跟帖</span>
       </my-header>
       <div class="comments-list">
+        <van-list v-model="loading"
+          :finished="finished"
+          finished-text="没有更多了"
+          @load="onLoad"
+        >
+
         <div class="comment" v-for="comment in comments" :key="comment.id">
           <div class="user-info">
             <div class="avatar">
@@ -15,7 +21,13 @@
               <span class="time">2小时前</span>
             </div>
             <div class="reply">
-              <span>回复</span>
+              <span class="btn-reply"
+               :data-id="comment.id"
+               :data-name="comment.user.nickname"
+                @click="replyAscUser"
+              >
+                回复
+              </span>
             </div>
           </div>
           <rec-comment v-if="comment.parent"
@@ -23,15 +35,24 @@
             :content="comment.parent.content"
             :parent="comment.parent.parent"
             :cur-id="comment.parent.id"
-            @click="replyHandler"
-          ></rec-comment>
+            @click="replyDesHandler"
+          >
+          </rec-comment>
           <div class="comment-content">
             <span>{{comment.content}}</span>
           </div>
         </div>
+
+        </van-list>
       </div>
     </div>
-    <my-footer v-model="Writing"></my-footer>
+    <my-footer :is-writing="Writing"
+      :parent-id="parentId"
+      :parent-name="parentName"
+      @writing="showWriting"
+      @submit="submitHandler"
+    >
+    </my-footer>
   </div>
 </template>
 
@@ -40,6 +61,9 @@ import myHeader from '@/components/my-header.vue'
 import myFooter from '@/components/my-footer.vue'
 import recComment from '@/components/recur-comment.vue'
 import { getCommentsById } from '@/api/articles.js'
+import Vue from 'vue'
+import { List } from 'vant'
+Vue.use(List)
 
 export default {
   components: {
@@ -50,34 +74,75 @@ export default {
   data () {
     return {
       Writing: false,
-      comments: [
-        {
-          user: {
-            nickname: '',
-            head_img: ''
-          }
-        }
-      ]
+      loading: false,
+      finished: false,
+      pageIndex: 1,
+      pageSize: 5,
+      comments: [],
+      parentId: '',
+      parentName: ''
     }
   },
-  async mounted () {
-    let rsp = await getCommentsById(this.$route.params.id)
-    if (rsp.status + '' === '200') {
-      this.comments = rsp.data.data.map(element => {
-        let baseURL = localStorage.getItem('dh_base_URL')
-        if (element.user.head_img) {
-          element.user.head_img = baseURL + element.user.head_img
-        } else {
-          element.user.head_img = './default_avatar.png'
-        }
-        return element
-      })
-      console.log(this.comments)
-    }
+  mounted () {
+    this.pageIndex = 1
+    this.comments = []
+    this.init()
   },
   methods: {
-    replyHandler (parentId) {
-      console.log(parentId)
+    async init () {
+      let params = {
+        pageIndex: this.pageIndex,
+        pageSize: this.pageSize
+      }
+      let rsp = await getCommentsById(this.$route.params.id, params)
+      if (rsp.data.data.length > 0) {
+        if (rsp.status + '' === '200') {
+          let temp = rsp.data.data.map(element => {
+            let baseURL = localStorage.getItem('dh_base_URL')
+            if (element.user.head_img) {
+              element.user.head_img = baseURL + element.user.head_img
+            } else {
+              element.user.head_img = './default_avatar.png'
+            }
+            return element
+          })
+          this.comments.push(...temp)
+        }
+        this.loading = false
+        this.finished = false
+      } else {
+        console.log(this.comments)
+        this.loading = false
+        this.finished = true
+      }
+    },
+    hideHandler (event) {
+      if (!event.target.classList.contains('btn-reply')) {
+        this.Writing = false
+        this.parentName = ''
+      }
+    },
+    replyAscUser (event) {
+      this.parentId = event.target.dataset.id
+      this.parentName = event.target.dataset.name
+      this.Writing = true
+    },
+    replyDesHandler (data) {
+      this.parentId = data.id
+      this.parentName = data.name
+      this.Writing = true
+    },
+    submitHandler () {
+      this.pageIndex = 1
+      this.comments = []
+      this.init()
+    },
+    showWriting (to) {
+      this.Writing = to
+    },
+    onLoad () {
+      this.pageIndex++
+      this.init()
     }
   }
 }

@@ -6,7 +6,7 @@
     </div>
     <div class="footer" v-if="!isWriting">
       <div class="write-comment">
-        <div class="text-block" @click="isWriting=true">
+        <div class="text-block" @click="Writing=true">
           <span>写跟帖</span>
         </div>
       </div>
@@ -32,7 +32,7 @@
     <div class="writing-footer" v-else>
       <div class="comment-text">
         <textarea autofocus
-          cols="30" rows="10" :placeholder="'回复: @'+news.user.nickname"
+          cols="30" rows="10" :placeholder="'回复: @'+  replyObj"
           v-model="tempComment"
         >
         </textarea>
@@ -59,18 +59,16 @@ import { Toast, Icon } from 'vant'
 Vue.use(Icon)
 export default {
   props: [
-    'isWriting'
+    'isWriting',
+    'parentId',
+    'parentName'
   ],
-  model: {
-    prop: 'isWriting',
-    event: 'writing'
-  },
   components: {
     myButton
   },
   data () {
     return {
-      // isWriting: false,
+      Writing: this.isWriting,
       tempComment: '',
       heights: ['60*@vw-ratio', '113*@vw-ratio'],
       news: {
@@ -81,20 +79,35 @@ export default {
       }
     }
   },
+  computed: {
+    replyObj () {
+      if (this.parentName) {
+        return this.parentName
+      } else {
+        return this.news.user.nickname
+      }
+    }
+  },
   watch: {
     isWriting (to, from) {
+      this.Writing = to
+    },
+    Writing (to, from) {
       this.$emit('writing', to)
     }
   },
   mounted () {
-    getArticleById(this.$route.params.id)
-      .then(rsp => {
-        if (rsp.status + '' === '200') {
-          this.news = { ...rsp.data.data }
-        }
-      })
+    this.init()
   },
   methods: {
+    init () {
+      getArticleById(this.$route.params.id)
+        .then(rsp => {
+          if (rsp.status + '' === '200') {
+            this.news = { ...rsp.data.data }
+          }
+        })
+    },
     async favoriteHandler () {
       this.news.has_star = !this.news.has_star
       let rsp = await starArticle(this.news.id)
@@ -103,12 +116,21 @@ export default {
       }
     },
     async submitHandler () {
-      let data = { content: this.tempComment }
+      let data = {}
+      if (this.parentId) {
+        data = {
+          content: this.tempComment,
+          parent_id: this.parentId
+        }
+      } else {
+        data = { content: this.tempComment }
+      }
       let rsp = await postComment(this.news.id, data)
       if (rsp.status + '' === '200') {
         Toast.success(rsp.data.message)
         this.tempComment = ''
-        this.isWriting = false
+        this.Writing = false
+        this.$emit('submit')
       }
     }
   }
